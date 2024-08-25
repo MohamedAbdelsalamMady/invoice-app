@@ -2,10 +2,16 @@
 <p>It is Simple Invoice Management System</p>
 <p>Using PHP and MySQL and Bootstrap CSS</p>
 <hr>
-<h2>How it Works</h2>
-<p>First: Download the the invoice-app and add it to this location C:\wamp64\www\folder_name</p>
-<p>there is folder called invoice_db.sql in this location C:\wamp64\www\invoices-app\database </p>
-<p>Import sql folder to phpmyadmin http://127.0.0.1/phpmyadmin/</p>
-<p>Second: Open the Server</p>
-<p>Third: get access to http://127.0.0.1/invoices-app/ this link</p>
+<h2>How to run the Invoices Management System (IMS) Project</h2>
+<p>1. Download the zip file</p>
+<p>2. Extract the file and copy invoice-app folder</p>
+<p>3.Paste inside root directory(for xampp xampp/htdocs, for wamp wamp/www, for lamp var/www/html)</p>
+<p>5. Create a database with name invoices_db</p>
+<p>6. Import invoice_db.sql file(given inside the zip package in database file folder)</p>
+<p>7.Run the script http://localhost/invoice-app (frontend)</p>
+<hr>
+<h2>Login Details</h2>
+<p>email: mo123@gmail.com</p>
+<p>password: 123456</p>
+<hr>
 <h3>Enjoy your Trip Happy Code</h3>
