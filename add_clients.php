@@ -2,10 +2,6 @@
 //Protecting Code In all admin pages
 session_start();
 
-/* if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] != 'admin' ) {
-    header("Location: index.php");
-    exit();
-} */
 
 @include './server/connect.php';
 
@@ -14,6 +10,7 @@ if (isset($_POST['upload'])) {
     $address = mysqli_real_escape_string($conn, $_POST['address'] ?? '');
     $contact_email = mysqli_real_escape_string($conn, $_POST['contact_email'] ?? '');
     $contact_phone = mysqli_real_escape_string($conn, $_POST['contact_phone'] ?? '');
+    $created_by = $_SESSION['user_id'] ?? 0;
     
 
     if (empty($name)) {
@@ -27,8 +24,8 @@ if (isset($_POST['upload'])) {
     } 
 
     if (!isset($errorMsg)) {
-        $sql = "INSERT INTO clients (name, address, contact_email, contact_phone, created_at) 
-                VALUES ('$name', '$address', '$contact_email', '$contact_phone', NOW())";
+        $sql = "INSERT INTO clients (name, address, contact_email, contact_phone, created_at, created_by) 
+                VALUES ('$name', '$address', '$contact_email', '$contact_phone', NOW(), '$created_by')";
         $result = mysqli_query($conn, $sql);
         if ($result) {
             $successMsg = 'New record added successfully';

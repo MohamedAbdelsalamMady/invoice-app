@@ -83,6 +83,30 @@
 
 
             <li class="nav-item">
+              <a data-bs-toggle="collapse" href="#lists">
+                <i class="fas fa-pen-square"></i>
+                <p>List Of Items</p>
+                <span class="caret"></span>
+              </a>
+              <div class="collapse" id="lists">
+                <ul class="nav nav-collapse">
+                  <li>
+                    <a href="show_listOfItems.php">
+                      <span class="sub-item">Show List of Items</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="add_listOfItems.php">
+                      <span class="sub-item">Add List of Items</span>
+                    </a>
+                  </li>
+
+                </ul>
+              </div>
+            </li>
+
+
+            <li class="nav-item">
               <a data-bs-toggle="collapse" href="#users">
                 <i class="fas fa-pen-square"></i>
                 <p>Users</p>

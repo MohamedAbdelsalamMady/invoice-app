@@ -8,28 +8,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$confirmpassword = $_POST['confirm_password'];
     $user_role = mysqli_real_escape_string($conn, $_POST['user_role']); // Get the user role
 
-    // Check if passwords match
-    if ($password == $confirmpassword) {
-        // Hash the password using bcrypt
-        $passwordHash = password_hash($password, PASSWORD_BCRYPT);
+    if (strpos($user_email, '@gmail.com') === false) {
+      $message = 'Please use a Gmail address for registration.';
+  } else {
+      $uppercase = preg_match('@[A-Z]@', $password);
+      $lowercase = preg_match('@[a-z]@', $password);
+      $number = preg_match('@[0-9]@', $password);
+      $specialChars = preg_match('@[^\w]@', $password);
 
-        // Insert user into the database with user role
-        $stmt = $conn->prepare("INSERT INTO users (user_name, user_email, password, user_role) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssss", $user_name, $user_email, $passwordHash, $user_role);
-
-        if ($stmt->execute()) {
-            header("Location: home.php");
-            exit();
-        } else {
-            $message = "Error: " . $stmt->error;
-        }
-
-        $stmt->close();
+    if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
+        $message = 'Password must be at least 8 characters long and include at least one upper case letter, one number, and one special character.';
     } else {
-        $message = "Passwords do not match.";
+        // Check if passwords match
+        if ($password == $confirmpassword) {
+            // Hash the password using bcrypt
+            $passwordHash = password_hash($password, PASSWORD_BCRYPT);
+
+            // Insert user into the database with user role
+            $stmt = $conn->prepare("INSERT INTO users (user_name, user_email, password, user_role) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("ssss", $user_name, $user_email, $passwordHash, $user_role);
+
+            if ($stmt->execute()) {
+                header("Location: home.php");
+                exit();
+            } else {
+                $message = "Error: " . $stmt->error;
+            }
+
+            $stmt->close();
+        } else {
+            $message = "Passwords do not match.";
+        }
     }
 }
+}
 ?>
+
 
 
 
@@ -115,6 +129,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
       </section>
 
+      <script>
+    document.querySelector('form').addEventListener('submit', function (e) {
+        const emailField = document.getElementById('user_email');
+        if (!emailField.value.endsWith('@gmail.com')) {
+            alert('Please use a Gmail address for registration.');
+            e.preventDefault(); // Prevent form submission
+        }
+    });
+</script>
       <script src="js/bootstrap.bundle.js"></script>
       <script src="js/bootstrap.bundle.min.js"></script>
 </body>

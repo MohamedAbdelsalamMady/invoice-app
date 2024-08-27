@@ -1,5 +1,9 @@
 <?php
 session_start();
+if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] != 'admin') {
+  header("Location: index.php");
+  exit();
+}
 
 @include './server/connect.php';
 
@@ -15,7 +19,7 @@ if ($invoice_id) {
     $invoice = $invoice_result->fetch_assoc();
 
     // Fetch invoice items
-    $item_sql = "SELECT * FROM invoice_items WHERE invoice_id = ?";
+    $item_sql = "SELECT * FROM invoice_items WHERE id = ?";
     $item_stmt = $conn->prepare($item_sql);
     $item_stmt->bind_param('i', $invoice_id);
     $item_stmt->execute();

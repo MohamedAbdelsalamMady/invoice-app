@@ -22,8 +22,7 @@ if (isset($_GET['invoice_id'])) {
     $items_query = "
         SELECT description, quantity, price_per_unit, total
         FROM invoice_items
-        WHERE invoice_id = ?
-    ";
+        WHERE id = ?";
     $items_stmt = $conn->prepare($items_query);
     $items_stmt->bind_param("i", $invoice_id);
     $items_stmt->execute();

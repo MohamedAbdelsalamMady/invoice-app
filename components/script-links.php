@@ -31,3 +31,5 @@
 
   <!-- Kaiadmin DEMO methods, don't include it in your project! -->
   <script src="js/setting-demo.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
